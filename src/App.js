@@ -1,9 +1,12 @@
 import React from 'react';
 import './App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const App = () => {
 
+  useEffect(() => {
+    if(gameState.victory) document.title = "Victory!";
+  });
   /// Hook goes above return, below App function
 
   /// initial value of userText will be an empty string
