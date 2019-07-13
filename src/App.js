@@ -14,6 +14,14 @@ const App = () => {
    const updateUserText = event => {
     setUserText(event.target.value);
     console.log(`current userText`, userText);
+
+    if (event.target.value === snippet) {
+      setGameState({
+        ...gameState,
+        victory: true,
+        endTime: new Date().getTime() - gameState.startTime 
+      });
+    }
    };
 
   const SNIPPETS = [
@@ -25,18 +33,25 @@ const App = () => {
   const [snippet, setSnippet] = useState('');
   
    
-  
+  /// the onClick handler references this function, which is called when the button is clicked in the render
   const chooseSnippet = snippetIndex => () => {
     console.log('setSnippet', snippetIndex);
     setSnippet(SNIPPETS[snippetIndex]);
-
+    setGameState({ ...gameState, startTime: new Date().getTime() });
   };
+
+/// set the state for game victory
+const INITIAL_GAME_STATE = {victor: false, startTime: null, endTime: null };
+const [gameState, setGameState] = useState(INITIAL_GAME_STATE);
+
+
   return (
     <div>
       <h2>Type Race</h2>
       <hr />
       <h3>Snippet</h3>
       {snippet}
+      <h4>{gameState.victory ? `Done! 🎉 Time: ${gameState.endTime}ms` : null }</h4>
       <input value={userText} onChange={updateUserText}/>
       <hr />
       {
