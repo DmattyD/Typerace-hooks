@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 
 const App = () => {
 
+  /// will change title of webpage if victory state is true
   useEffect(() => {
     if(gameState.victory) document.title = "Victory!";
   });
